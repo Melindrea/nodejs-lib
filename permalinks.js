@@ -14,7 +14,7 @@ module.exports = function (assumeIndex) {
             newPath = path.dirname(fp) + '/' + filename + '/index.html';
         }
 
-        if (filename !== 'index') {
+        if (filename !== 'index' || assumeIndex) {
             file.path = newPath;
         }
 
