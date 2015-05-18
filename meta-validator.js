@@ -4,7 +4,7 @@ module.exports = (function () {
     var fs = require('fs'),
         cheerio = require('cheerio'),
         path = require('path'),
-        config = require('../config.js'), dir = config.pkg.config.buildDir,
+        config = require('../config'), dir = config.pkg.config.buildDir,
         walk = require('walk'), walker, data = [],
         descriptionMin = 130, descriptionMax = 156, titleMax = 65;
 

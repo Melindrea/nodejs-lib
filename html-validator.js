@@ -4,7 +4,7 @@ module.exports = (function () {
     var fs = require('fs'),
     html5Lint = require('html5-lint'),
     path = require('path'),
-    config = require('../config.js'), dir = config.pkg.config.buildDir,
+    config = require('../config'), dir = config.pkg.config.buildDir,
     walk = require('walk'), walker, data = [];
 
     walker = walk.walk(dir, {filters: ['assets']});
