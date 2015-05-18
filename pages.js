@@ -5,20 +5,21 @@ var through = require('through2'),
     entries = [];
 module.exports = function () {
     return through.obj(function (file, enc, cb) {
-        var fp = file.path,
-            config = require('../config.js'),
-            extname = path.extname(fp),
-            filename = path.basename(fp, extname),
-            link = path.dirname(fp).replace(
-                process.cwd() + '/content/pages', config.pkg.homepage
-            ) + '/' + filename + '/',
-            tweetables = file.data.tweetables || [];
+        // var fp = file.path,
+        //     config = require('../config.js'),
+        //     extname = path.extname(fp),
+        //     filename = path.basename(fp, extname),
+        //     link = path.dirname(fp).replace(
+        //         process.cwd() + '/content/pages', config.pkg.homepage
+        //     ) + '/' + filename + '/',
+        //     tweetables = file.data.tweetables || [];
 
-        tweetables = tweetables.filter(function (tweetable) {
-            return tweetable.length >= 50 && tweetable.length <= 70;
-        });
-
-        console.log(tweetables);
+        // tweetables = tweetables.filter(function (tweetable) {
+        //     return tweetable.length >= 50 && tweetable.length <= 70;
+        // });
+        // var matter = require('gray-matter'),
+        //     frontMatter = matter(file);
+        console.log(file.data);
         // this.push(file);
         cb();
     },
@@ -32,7 +33,7 @@ module.exports = function () {
                 contents: new Buffer(contents)
             });
 
-        this.push(file);
+        // this.push(file);
         cb();
     });
 };
