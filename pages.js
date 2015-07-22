@@ -19,7 +19,7 @@ module.exports = function (type, newFileName, dest, config) {
         parsedFile.facebook = frontMatter.data.facebookables || [];
         parsedFile.frontMatter = frontMatter.data;
         parsedFile.content = frontMatter.content;
-        parsedFile.link = link;
+        parsedFile.link = link.replace('/index/', '/');
         parsedFile.created = file.stat.birthtime;
         parsedFile.changed = file.stat.mtime || file.stat.birthtime;
 
@@ -65,6 +65,7 @@ module.exports = function (type, newFileName, dest, config) {
 
             rssEntries.forEach(function (entry) {
                 var title = (entry.frontMatter.parent) ? _s.capitalize(entry.frontMatter.parent) + ': ' + entry.frontMatter.title : entry.frontMatter.title;
+
                 feed.item({
                     title: xmlEscape(title),
                     description: xmlEscape(entry.frontMatter.excerpt),
@@ -116,7 +117,7 @@ module.exports = function (type, newFileName, dest, config) {
                 }
 
                  validEntries = entries.filter(function (entry) {
-                    var link = entry.link.replace('/index/', '/');
+                    var link = entry.link;
 
                     entry.validTexts = entry[key].filter(function (item) {
                         var properLength = (item.length >= bufferConfig[key].min && item.length <= bufferConfig[key].max),
@@ -134,7 +135,7 @@ module.exports = function (type, newFileName, dest, config) {
 
                  validEntries.forEach(function (entry) {
                     var text = entry.validTexts[Math.floor(Math.random() * entry.validTexts.length)];
-                    workingEntries.push({ url: entry.link.replace('/index/', '/'), text: text});
+                    workingEntries.push({ url: entry.link, text: text});
                  });
 
                 workingEntries = workingEntries.slice(0, numberOfEntries[key] - 1);
@@ -180,7 +181,7 @@ module.exports = function (type, newFileName, dest, config) {
             path: '/' + dest +  '/' + newFileName,
             contents: new Buffer(content)
         });
-        // this.push(file);
+        this.push(file);
         cb();
     });
 };
